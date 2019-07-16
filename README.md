@@ -1,1 +1,3 @@
-# GameAI
+### Game AI
+
+> study code for Game AI. 游戏启程的第一步...
