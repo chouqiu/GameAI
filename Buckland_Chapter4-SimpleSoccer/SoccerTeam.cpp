@@ -738,7 +738,6 @@ void SoccerTeam::SetPlayerHomeRegion(int plyr, int region)const
   m_Players[plyr]->SetHomeRegion(region);
 }
 
-
 //---------------------- UpdateTargetsOfWaitingPlayers ------------------------
 //
 //  

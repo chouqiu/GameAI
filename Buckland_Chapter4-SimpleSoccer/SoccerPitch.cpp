@@ -115,7 +115,8 @@ void SoccerPitch::Update()
   //if a goal has been detected reset the pitch ready for kickoff
   if (m_pBlueGoal->Scored(m_pBall) || m_pRedGoal->Scored(m_pBall))
   {
-    m_bGameOn = false;
+    //m_bGameOn = false;
+    SetGameOff();
     
     //reset the ball                                                      
     m_pBall->PlaceAtPosition(Vector2D((double)m_cxClient/2.0, (double)m_cyClient/2.0));
