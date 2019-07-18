@@ -264,6 +264,20 @@ bool PlayerBase::InHomeRegion()const
   }
 }
 
+bool PlayerBase::isFarFromHomeRegion()const
+{
+  int cur = Pitch()->GetRegionIndexFromPos(Pos());
+  if (cur >= 0 && abs(cur-m_iHomeRegion) >= FieldConst::iMaxDistFromHomeRegion)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+  
+}
+
 bool PlayerBase::AtTarget()const
 {
   return (Vec2DDistanceSq(Pos(), Steering()->Target()) < Prm.PlayerInTargetRangeSq);

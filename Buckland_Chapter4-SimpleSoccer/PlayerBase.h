@@ -106,6 +106,10 @@ public:
   //of his home region
   bool        InHomeRegion()const;
 
+  //returns true if the player is too far from his 
+  //position, especially for defenders...
+  bool        isFarFromHomeRegion()const;
+
   //returns true if this player is ahead of the attacker
   bool        isAheadOfAttacker()const;
   
@@ -149,6 +153,7 @@ public:
   SoccerPitch* const       Pitch()const;
   SteeringBehaviors*const  Steering()const{return m_pSteering;}
   const Region* const      HomeRegion()const;
+  int                      HomeRegionIndex() {return m_iHomeRegion;}
   void                     SetHomeRegion(int NewRegion){m_iHomeRegion = NewRegion;}
   SoccerTeam*const         Team()const{return m_pTeam;}
   
