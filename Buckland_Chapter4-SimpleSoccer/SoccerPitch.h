@@ -100,25 +100,7 @@ public:
     return m_Regions[idx];
   }
 
-  int GetRegionIndexFromPos(Vector2D pos)
-  {
-    /*
-    std::vector<Region*>::const_iterator cit = m_Regions.begin();
-    while (cit != m_Regions.end())
-    {
-      if (*cit != NULL && (*cit)->Inside(pos) ) {
-
-      }
-    }
-    */
-    for(int id=0; id<m_Regions.size(); ++id) {
-      if (m_Regions[id] != NULL && (m_Regions[id])->Inside(pos)) {
-        return id;
-      }
-    }
-    
-    return -1;
-  }
+  int GetRegionIndexFromPos(Vector2D pos);
 
   bool  GameOn()const{return m_bGameOn;}
   void  SetGameOn(){m_bGameOn = true;}

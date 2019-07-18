@@ -191,18 +191,6 @@ void ChaseBall::Execute(FieldPlayer* player)
     return;
   }
 
-  // if the player is far from his home region, then get back.
-  // just for red team...
-  if (player->Team()->Color() == SoccerTeam::red &&
-        player->isFarFromHomeRegion())                                                                            
-  {
-  #ifdef PLAYER_STATE_INFO_ON
-    debug_con << "Player " << player->ID() << " is far from his home " << player->HomeRegionIndex();
-  #endif
-    player->GetFSM()->ChangeState(ReturnToHomeRegion::Instance());
-    return;
-  }
-
   //if the player is the closest player to the ball then he should keep
   //chasing it
   if (player->isClosestTeamMemberToBall())
@@ -211,6 +199,20 @@ void ChaseBall::Execute(FieldPlayer* player)
 
     return;
   }
+  
+  // if the player is far from his home region, then get back.
+  // just for red team...MUST BE after closest process...
+  /*
+  if (player->Team()->Color() == SoccerTeam::red &&
+	  player->isFarFromHomeRegion())
+  {
+#ifdef PLAYER_STATE_INFO_ON
+	  debug_con << "Player " << player->ID() << " is far from his home " << player->HomeRegionIndex();
+#endif
+	  player->GetFSM()->ChangeState(ReturnToHomeRegion::Instance());
+	  return;
+  }
+  */
   
   //if the player is not closest to the ball anymore, he should return back
   //to his home region and wait for another opportunity

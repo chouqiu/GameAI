@@ -45,11 +45,11 @@ void Attacking::Enter(SoccerTeam* team)
   //set up the player's home regions
   if (team->Color() == SoccerTeam::blue)
   {
-    ChangePlayerHomeRegions(team, FieldConst::BlueAttackingRegions);
+    ChangePlayerHomeRegions(team, FieldConst::BlueAttackingRegions());
   }
   else
   {
-    ChangePlayerHomeRegions(team, FieldConst::RedAttackingRegions);
+    ChangePlayerHomeRegions(team, FieldConst::RedAttackingRegions());
   }
 
   //if a player is in either the Wait or ReturnToHomeRegion states, its
@@ -102,11 +102,11 @@ void Defending::Enter(SoccerTeam* team)
   //set up the player's home regions
   if (team->Color() == SoccerTeam::blue)
   {
-    ChangePlayerHomeRegions(team, FieldConst::BlueDefendingRegions);
+    ChangePlayerHomeRegions(team, FieldConst::BlueDefendingRegions());
   }
   else
   {
-    ChangePlayerHomeRegions(team, FieldConst::RedDefendingRegions);
+    ChangePlayerHomeRegions(team, FieldConst::RedDefendingRegions());
   }
   
   //if a player is in either the Wait or ReturnToHomeRegion states, its
