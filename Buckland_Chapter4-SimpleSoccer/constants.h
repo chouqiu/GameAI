@@ -9,10 +9,28 @@ const int WindowHeight = 400;
 const int TeamSize = 5;
 
 struct FieldConst {
+	enum player_role{goal_keeper, attacker, defender};
+
 	static const int NumRegionsHorizontal = 7; 
 	static const int NumRegionsVertical   = 3;
 
 	static const int iMaxDistFromHomeRegion = 8;
+
+	static const int** const DefaultBlueTeam()
+	{
+		//static const int regions[TeamSize] = { 1,6,8,3,5 };
+		static const int regions[TeamSize][2] = { {1,goal_keeper},{6,attacker},{8,attacker},
+													{3,defender},{5,defender} };
+		return regions;
+	}
+
+	static const int** const DefaultRedTeam()
+	{
+		//static const int regions[TeamSize] = { 16,9,11,12,14 };
+		static const int regions[TeamSize][1] = { {16,goal_keeper},{12,attacker},{14,attacker},
+													{15,defender},{17,defender} };
+		return regions;
+	}
 
 	static const int* const BlueAttackingRegions()
 	{

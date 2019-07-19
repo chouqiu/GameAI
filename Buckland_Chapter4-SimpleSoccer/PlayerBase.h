@@ -35,7 +35,7 @@ class PlayerBase : public MovingEntity,
 
 public:
   
-  enum player_role{goal_keeper, attacker, defender};
+  //enum player_role{goal_keeper, attacker, defender, role_size};
 
 protected:
 

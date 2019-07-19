@@ -581,6 +581,70 @@ void SoccerTeam::Render()const
 //------------------------------------------------------------------------
 void SoccerTeam::CreatePlayers()
 {
+  for(size_t id=0; id<TeamSize; ++id)
+  {
+    if(Color() == blue)
+    {
+      if (id == 0)
+      {
+        m_Players.push_back(new GoalKeeper(this,
+                               FieldConst::DefaultBlueTeam[id][0],
+                               TendGoal::Instance(),
+                               Vector2D(0,1),
+                               Vector2D(0.0, 0.0),
+                               Prm.PlayerMass,
+                               Prm.PlayerMaxForce,
+                               Prm.PlayerMaxSpeedWithoutBall,
+                               Prm.PlayerMaxTurnRate,
+                               Prm.PlayerScale));
+      }
+      else
+      {
+        m_Players.push_back(new FieldPlayer(this,
+                               FieldConst::DefaultBlueTeam[id][0],
+                               Wait::Instance(),
+                               Vector2D(0,1),
+                               Vector2D(0.0, 0.0),
+                               Prm.PlayerMass,
+                               Prm.PlayerMaxForce,
+                               Prm.PlayerMaxSpeedWithoutBall,
+                               Prm.PlayerMaxTurnRate,
+                               Prm.PlayerScale,
+                               FieldConst::DefaultBlueTeam[id][1]));
+      }
+    }
+    else
+    {
+      if (id == 0)
+      {
+        m_Players.push_back(new GoalKeeper(this,
+                                FieldConst::DefaultRedTeam[id][0],
+                                TendGoal::Instance(),
+                                Vector2D(0,1),
+                                Vector2D(0.0, 0.0),
+                                Prm.PlayerMass,
+                                Prm.PlayerMaxForce,
+                                Prm.PlayerMaxSpeedWithoutBall,
+                                Prm.PlayerMaxTurnRate,
+                                Prm.PlayerScale));
+      }
+      else
+      {
+        m_Players.push_back(new FieldPlayer(this,
+                               FieldConst::DefaultRedTeam[id][0],
+                               Wait::Instance(),
+                               Vector2D(0,1),
+                               Vector2D(0.0, 0.0),
+                               Prm.PlayerMass,
+                               Prm.PlayerMaxForce,
+                               Prm.PlayerMaxSpeedWithoutBall,
+                               Prm.PlayerMaxTurnRate,
+                               Prm.PlayerScale,
+                               FieldConst::DefaultRedTeam[id][1]));
+      }
+    }
+  }
+  /*
   if (Color() == blue)
   {
     //goalkeeper
@@ -722,6 +786,7 @@ void SoccerTeam::CreatePlayers()
                                PlayerBase::defender));
                       
   }
+  */
 
   //register the players with the entity manager
   std::vector<PlayerBase*>::iterator it = m_Players.begin();
