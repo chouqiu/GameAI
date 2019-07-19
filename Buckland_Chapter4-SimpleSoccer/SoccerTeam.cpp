@@ -472,6 +472,15 @@ void SoccerTeam::ReturnAllFieldPlayersToHome()const
   }
 }
 
+void SoccerTeam::ChangeToAttacking()
+{
+	GetFSM()->ChangeState(Attacking::Instance());
+}
+
+void SoccerTeam::ChangeToDefending()
+{
+	GetFSM()->ChangeState(Defending::Instance());
+}
 
 //--------------------------- Render -------------------------------------
 //

@@ -238,8 +238,10 @@ void PutBallBackInPlay::Enter(GoalKeeper* keeper)
   keeper->Team()->SetControllingPlayer(keeper);
 
   //send all the players home
-  keeper->Team()->Opponents()->ReturnAllFieldPlayersToHome();
-  keeper->Team()->ReturnAllFieldPlayersToHome();
+  //keeper->Team()->Opponents()->ReturnAllFieldPlayersToHome();
+  //keeper->Team()->ReturnAllFieldPlayersToHome();
+  keeper->Team()->ChangeToAttacking();
+  keeper->Team()->Opponents()->ChangeToDefending();
 }
 
 

@@ -64,7 +64,9 @@ void Attacking::Execute(SoccerTeam* team)
   //if this team is no longer in control change states
   if (!team->InControl())
   {
-    team->GetFSM()->ChangeState(Defending::Instance()); return;
+    //team->GetFSM()->ChangeState(Defending::Instance()); return;
+	  team->ChangeToDefending();
+	  return;
   }
 
   //calculate the best position for any supporting attacker to move to
@@ -119,7 +121,9 @@ void Defending::Execute(SoccerTeam* team)
   //if in control change states
   if (team->InControl())
   {
-    team->GetFSM()->ChangeState(Attacking::Instance()); return;
+    //team->GetFSM()->ChangeState(Attacking::Instance()); return;
+	  team->ChangeToAttacking();
+	  return;
   }
 }
 

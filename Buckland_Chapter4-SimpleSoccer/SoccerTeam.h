@@ -161,7 +161,10 @@ public:
   const std::vector<PlayerBase*>& Members()const{return m_Players;}  
 
   StateMachine<SoccerTeam>* GetFSM()const{return m_pStateMachine;}
-  
+
+  void ChangeToDefending();
+  void ChangeToAttacking();
+
   Goal*const           HomeGoal()const{return m_pHomeGoal;}
   Goal*const           OpponentsGoal()const{return m_pOpponentsGoal;}
 
