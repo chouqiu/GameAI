@@ -16,22 +16,36 @@ struct FieldConst {
 
 	static const int iMaxDistFromHomeRegion = 8;
 
-	static const int** const DefaultBlueTeam()
+	static const player_role* const DefaultBlueTeam()
 	{
 		//static const int regions[TeamSize] = { 1,6,8,3,5 };
-		static const int regions[TeamSize][2] = { {1,goal_keeper},{6,attacker},{8,attacker},
-													{3,defender},{5,defender} };
-		return regions;
+		//static const int regions[TeamSize][2] = { {1,goal_keeper},{6,attacker},{8,attacker},
+		//											{3,defender},{5,defender} };
+		static const player_role[TeamSize] team = {goal_keeper, attacker, attacker, defender, defender};
+		return team;
 	}
 
-	static const int** const DefaultRedTeam()
+	static const player_role* const DefaultRedTeam()
 	{
 		//static const int regions[TeamSize] = { 16,9,11,12,14 };
-		static const int regions[TeamSize][2] = { {16,goal_keeper},{12,attacker},{14,attacker},
-													{15,defender},{17,defender} };
+		//static const int regions[TeamSize][2] = { {19,goal_keeper},{12,attacker},{14,attacker},
+		//											{15,defender},{17,defender} };
+		static const player_role[TeamSize] team = {goal_keeper, attacker, attacker, defender, defender};
+		return team;
+	}
+
+	static const int* const BlueDefaultRegions()
+	{
+		static const int regions[TeamSize] = { 1,6,8,3,5 };
 		return regions;
 	}
 
+	static const int* const RedDefaultRegions()
+	{
+		static const int regions[TeamSize] = { 19,12,14,15,17 };
+		return regions;
+	}
+	
 	static const int* const BlueAttackingRegions()
 	{
 		static const int regions[TeamSize] = { 1,15,17,9,7 };

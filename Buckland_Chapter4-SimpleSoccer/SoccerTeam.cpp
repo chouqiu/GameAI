@@ -588,7 +588,7 @@ void SoccerTeam::CreatePlayers()
       if (id == 0)
       {
         m_Players.push_back(new GoalKeeper(this,
-                               FieldConst::DefaultBlueTeam()[id][0],
+                               FieldConst::BlueDefaultRegions()[id],
                                TendGoal::Instance(),
                                Vector2D(0,1),
                                Vector2D(0.0, 0.0),
@@ -601,7 +601,7 @@ void SoccerTeam::CreatePlayers()
       else
       {
         m_Players.push_back(new FieldPlayer(this,
-                               FieldConst::DefaultBlueTeam()[id][0],
+                               FieldConst::BlueDefaultRegions()[id],
                                Wait::Instance(),
                                Vector2D(0,1),
                                Vector2D(0.0, 0.0),
@@ -610,7 +610,7 @@ void SoccerTeam::CreatePlayers()
                                Prm.PlayerMaxSpeedWithoutBall,
                                Prm.PlayerMaxTurnRate,
                                Prm.PlayerScale,
-                               FieldConst::DefaultBlueTeam()[id][1]));
+                               FieldConst::DefaultBlueTeam()[id]));
       }
     }
     else
@@ -618,7 +618,7 @@ void SoccerTeam::CreatePlayers()
       if (id == 0)
       {
         m_Players.push_back(new GoalKeeper(this,
-                                FieldConst::DefaultRedTeam()[id][0],
+                                FieldConst::RedDefaultRegions()[id],
                                 TendGoal::Instance(),
                                 Vector2D(0,1),
                                 Vector2D(0.0, 0.0),
@@ -631,7 +631,7 @@ void SoccerTeam::CreatePlayers()
       else
       {
         m_Players.push_back(new FieldPlayer(this,
-                               FieldConst::DefaultRedTeam()[id][0],
+                               FieldConst::RedDefaultRegions()[id],
                                Wait::Instance(),
                                Vector2D(0,1),
                                Vector2D(0.0, 0.0),
@@ -640,7 +640,7 @@ void SoccerTeam::CreatePlayers()
                                Prm.PlayerMaxSpeedWithoutBall,
                                Prm.PlayerMaxTurnRate,
                                Prm.PlayerScale,
-                               FieldConst::DefaultRedTeam()[id][1]));
+                               FieldConst::DefaultRedTeam()[id]));
       }
     }
   }
