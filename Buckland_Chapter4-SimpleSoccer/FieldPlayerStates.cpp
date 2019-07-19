@@ -102,6 +102,12 @@ bool GlobalPlayerState::OnMessage(FieldPlayer* player, const Telegram& telegram)
 
     break;
 
+  case Msg_GoCurrentHome:
+  {
+	  player->GetFSM()->ChangeState(ReturnToHomeRegion::Instance());
+  }
+  break;
+
   case Msg_PassToMe:
     {  
       

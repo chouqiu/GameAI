@@ -96,7 +96,7 @@ public:
   //calling this changes the state of all field players to that of 
   //ReturnToHomeRegion. Mainly used when a goal keeper has
   //possession
-  void        ReturnAllFieldPlayersToHome()const;
+  void        ReturnAllFieldPlayersToHome(bool isReturnDefaultHome=TRUE)const;
 
   //returns true if player has a clean shot at the goal and sets ShotTarget
   //to a normalized vector pointing in the direction the shot should be

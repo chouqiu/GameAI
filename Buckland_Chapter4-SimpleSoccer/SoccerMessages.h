@@ -9,6 +9,7 @@ enum MessageType
   Msg_PassToMe,
   Msg_SupportAttacker,
   Msg_GoHome,
+  Msg_GoCurrentHome,
   Msg_Wait
 };
 

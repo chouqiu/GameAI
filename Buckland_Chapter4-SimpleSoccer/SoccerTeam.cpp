@@ -455,8 +455,14 @@ bool SoccerTeam::CanShoot(Vector2D  BallPos,
 //
 //  sends a message to all players to return to their home areas forthwith
 //------------------------------------------------------------------------
-void SoccerTeam::ReturnAllFieldPlayersToHome()const
+void SoccerTeam::ReturnAllFieldPlayersToHome(bool isReturnToDefault)const
 {
+  MessageType msg = Msg_GoHome;
+  if (isReturnToDefault == FALSE)
+  {
+	  msg = Msg_GoCurrentHome;
+  }
+
   std::vector<PlayerBase*>::const_iterator it = m_Players.begin();
 
   for (it; it != m_Players.end(); ++it)
@@ -466,7 +472,7 @@ void SoccerTeam::ReturnAllFieldPlayersToHome()const
       Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
                             1,
                             (*it)->ID(),
-                            Msg_GoHome,
+                            msg,
                             NULL);
     }
   }
