@@ -20,6 +20,7 @@
 #include "misc/autolist.h"
 #include "2D/Vector2D.h"
 #include "Game/MovingEntity.h"
+#include "constants.h"
 
 class SoccerTeam;
 class SoccerPitch;
@@ -40,7 +41,7 @@ public:
 protected:
 
   //this player's role in the team
-  player_role             m_PlayerRole;
+  FieldConst::player_role             m_PlayerRole;
 
   //a pointer to this player's team
   SoccerTeam*             m_pTeam;
@@ -76,7 +77,7 @@ public:
              double          max_speed,
              double          max_turn_rate,
              double          scale,
-             player_role    role);
+             FieldConst::player_role    role);
 
   virtual ~PlayerBase();
 
@@ -137,7 +138,7 @@ public:
   //the area close to the opponent's goal
   bool        InHotRegion()const;
 
-  player_role Role()const{return m_PlayerRole;}
+  FieldConst::player_role Role()const{return m_PlayerRole;}
 
   double       DistSqToBall()const{return m_dDistSqToBall;}
   void        SetDistSqToBall(double val){m_dDistSqToBall = val;}

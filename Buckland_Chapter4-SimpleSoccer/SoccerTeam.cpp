@@ -148,7 +148,7 @@ PlayerBase* SoccerTeam::DetermineBestSupportingAttacker()
   for (it; it != m_Players.end(); ++it)
   {
     //only attackers utilize the BestSupportingSpot
-    if ( ((*it)->Role() == PlayerBase::attacker) && ((*it) != m_pControllingPlayer) )
+    if ( ((*it)->Role() == FieldConst::attacker) && ((*it) != m_pControllingPlayer) )
     {
       //calculate the dist. Use the squared value to avoid sqrt
       double dist = Vec2DDistanceSq((*it)->Pos(), m_pSupportSpotCalc->GetBestSupportingSpot());
@@ -467,7 +467,7 @@ void SoccerTeam::ReturnAllFieldPlayersToHome(bool isReturnToDefault)const
 
   for (it; it != m_Players.end(); ++it)
   {
-    if ((*it)->Role() != PlayerBase::goal_keeper)
+    if ((*it)->Role() != FieldConst::goal_keeper)
     {
       Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
                             1,
@@ -588,7 +588,7 @@ void SoccerTeam::CreatePlayers()
       if (id == 0)
       {
         m_Players.push_back(new GoalKeeper(this,
-                               FieldConst::DefaultBlueTeam[id][0],
+                               FieldConst::DefaultBlueTeam()[id][0],
                                TendGoal::Instance(),
                                Vector2D(0,1),
                                Vector2D(0.0, 0.0),
@@ -601,7 +601,7 @@ void SoccerTeam::CreatePlayers()
       else
       {
         m_Players.push_back(new FieldPlayer(this,
-                               FieldConst::DefaultBlueTeam[id][0],
+                               FieldConst::DefaultBlueTeam()[id][0],
                                Wait::Instance(),
                                Vector2D(0,1),
                                Vector2D(0.0, 0.0),
@@ -610,7 +610,7 @@ void SoccerTeam::CreatePlayers()
                                Prm.PlayerMaxSpeedWithoutBall,
                                Prm.PlayerMaxTurnRate,
                                Prm.PlayerScale,
-                               FieldConst::DefaultBlueTeam[id][1]));
+                               FieldConst::DefaultBlueTeam()[id][1]));
       }
     }
     else
@@ -618,7 +618,7 @@ void SoccerTeam::CreatePlayers()
       if (id == 0)
       {
         m_Players.push_back(new GoalKeeper(this,
-                                FieldConst::DefaultRedTeam[id][0],
+                                FieldConst::DefaultRedTeam()[id][0],
                                 TendGoal::Instance(),
                                 Vector2D(0,1),
                                 Vector2D(0.0, 0.0),
@@ -631,7 +631,7 @@ void SoccerTeam::CreatePlayers()
       else
       {
         m_Players.push_back(new FieldPlayer(this,
-                               FieldConst::DefaultRedTeam[id][0],
+                               FieldConst::DefaultRedTeam()[id][0],
                                Wait::Instance(),
                                Vector2D(0,1),
                                Vector2D(0.0, 0.0),
@@ -640,7 +640,7 @@ void SoccerTeam::CreatePlayers()
                                Prm.PlayerMaxSpeedWithoutBall,
                                Prm.PlayerMaxTurnRate,
                                Prm.PlayerScale,
-                               FieldConst::DefaultRedTeam[id][1]));
+                               FieldConst::DefaultRedTeam()[id][1]));
       }
     }
   }
@@ -827,7 +827,7 @@ void SoccerTeam::UpdateTargetsOfWaitingPlayers()const
 
   for (it; it != m_Players.end(); ++it)
   {  
-    if ( (*it)->Role() != PlayerBase::goal_keeper )
+    if ( (*it)->Role() != FieldConst::goal_keeper )
     {
       //cast to a field player
       FieldPlayer* plyr = static_cast<FieldPlayer*>(*it);

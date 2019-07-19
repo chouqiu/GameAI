@@ -27,7 +27,7 @@ struct FieldConst {
 	static const int** const DefaultRedTeam()
 	{
 		//static const int regions[TeamSize] = { 16,9,11,12,14 };
-		static const int regions[TeamSize][1] = { {16,goal_keeper},{12,attacker},{14,attacker},
+		static const int regions[TeamSize][2] = { {16,goal_keeper},{12,attacker},{14,attacker},
 													{15,defender},{17,defender} };
 		return regions;
 	}

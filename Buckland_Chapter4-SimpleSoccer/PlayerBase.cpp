@@ -37,7 +37,7 @@ PlayerBase::PlayerBase(SoccerTeam* home_team,
                        double    max_speed,
                        double    max_turn_rate,
                        double    scale,
-                       player_role role):    
+                       FieldConst::player_role role):    
 
     MovingEntity(home_team->Pitch()->GetRegionFromIndex(home_region)->Center(),
                  scale*10.0,
