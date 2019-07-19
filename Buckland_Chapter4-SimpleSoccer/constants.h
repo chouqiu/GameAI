@@ -10,19 +10,19 @@ const int TeamSize = 5;
 
 struct FieldConst {
 	static const int NumRegionsHorizontal = 7; 
-	static const int NumRegionsVertical   = 4;
+	static const int NumRegionsVertical   = 3;
 
 	static const int iMaxDistFromHomeRegion = 8;
 
 	static const int* const BlueAttackingRegions()
 	{
-		static const int regions[TeamSize] = { 1,12,14,6,4 };
+		static const int regions[TeamSize] = { 1,15,17,9,7 };
 		return regions;
 	}
 	//const int RedRegions[TeamSize] = {16,3,5,9,13};
 	static const int* const RedAttackingRegions()
 	{
-		static const int regions[TeamSize] = { 16,3,5,7,13 };
+		static const int regions[TeamSize] = { 19,3,5,7,13 };
 		return regions;
 	}
 
@@ -34,7 +34,7 @@ struct FieldConst {
     //const int RedRegions[TeamSize] = {16,9,11,12,14};
 	static const int* const RedDefendingRegions()
 	{
-		static const int regions[TeamSize] = { 16,7,10,12,14 };
+		static const int regions[TeamSize] = { 19,10,13,15,17 };
 		return regions;
 	}
 };
