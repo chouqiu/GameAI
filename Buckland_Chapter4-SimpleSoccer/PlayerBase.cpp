@@ -254,7 +254,7 @@ bool PlayerBase::BallWithinKickingRange()const
 
 bool PlayerBase::InHomeRegion()const
 {
-  if (m_PlayerRole == goal_keeper)
+  if (m_PlayerRole == FieldConst::goal_keeper)
   {
     return Pitch()->GetRegionFromIndex(m_iHomeRegion)->Inside(Pos(), Region::normal);
   }

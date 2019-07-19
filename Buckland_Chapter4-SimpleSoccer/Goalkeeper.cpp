@@ -31,7 +31,7 @@ GoalKeeper::GoalKeeper(SoccerTeam*        home_team,
                                                              max_speed,
                                                              max_turn_rate,
                                                              scale,
-                                                             PlayerBase::goal_keeper)
+                                                             FieldConst::goal_keeper)
                                          
                                         
 {   
