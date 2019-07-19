@@ -423,6 +423,15 @@ void Wait::Execute(FieldPlayer* player)
     player->TrackBall();
   }
 
+  if (player->InHomeRegion() == FALSE)
+  {
+    Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
+                          player->ID(),
+                          player->ID(),
+                          Msg_GoCurrentHome,
+                          NULL);
+  }
+
   //if this player's team is controlling AND this player is not the attacker
   //AND is further up the field than the attacker he should request a pass.
   if ( player->Team()->InControl()    &&
@@ -447,7 +456,7 @@ void Wait::Execute(FieldPlayer* player)
 
      return;
    }
-  } 
+  }
 }
 
 void Wait::Exit(FieldPlayer* player){}

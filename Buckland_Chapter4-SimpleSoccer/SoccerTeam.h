@@ -97,6 +97,8 @@ public:
   //ReturnToHomeRegion. Mainly used when a goal keeper has
   //possession
   void        ReturnAllFieldPlayersToHome(bool isReturnDefaultHome=TRUE)const;
+  void ChangeToDefending();
+  void ChangeToAttacking();
 
   //returns true if player has a clean shot at the goal and sets ShotTarget
   //to a normalized vector pointing in the direction the shot should be
@@ -161,9 +163,6 @@ public:
   const std::vector<PlayerBase*>& Members()const{return m_Players;}  
 
   StateMachine<SoccerTeam>* GetFSM()const{return m_pStateMachine;}
-
-  void ChangeToDefending();
-  void ChangeToAttacking();
 
   Goal*const           HomeGoal()const{return m_pHomeGoal;}
   Goal*const           OpponentsGoal()const{return m_pOpponentsGoal;}
