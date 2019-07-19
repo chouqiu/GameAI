@@ -12,8 +12,8 @@
 #include "TeamStates.h"
 #include "misc/FrameCounter.h"
 
-const int NumRegionsHorizontal = 6; 
-const int NumRegionsVertical   = 3;
+//const int NumRegionsHorizontal = 6; 
+//const int NumRegionsVertical   = 3;
 
 //------------------------------- ctor -----------------------------------
 //------------------------------------------------------------------------
@@ -21,15 +21,15 @@ SoccerPitch::SoccerPitch(int cx, int cy):m_cxClient(cx),
                                          m_cyClient(cy),
                                          m_bPaused(false),
                                          m_bGoalKeeperHasBall(false),
-                                         m_Regions(NumRegionsHorizontal*NumRegionsVertical),
+                                         m_Regions(FieldConst::NumRegionsHorizontal*FieldConst::NumRegionsVertical),
                                          m_bGameOn(true)
 {
   //define the playing area
   m_pPlayingArea = new Region(20, 20, cx-20, cy-20);
 
   //create the regions  
-  CreateRegions(PlayingArea()->Width() / (double)NumRegionsHorizontal,
-                PlayingArea()->Height() / (double)NumRegionsVertical);
+  CreateRegions(PlayingArea()->Width() / (double)FieldConst::NumRegionsHorizontal,
+                PlayingArea()->Height() / (double)FieldConst::NumRegionsVertical);
 
   //create the goals
    m_pRedGoal  = new Goal(Vector2D( m_pPlayingArea->Left(), (cy-Prm.GoalWidth)/2),
@@ -134,9 +134,9 @@ void SoccerPitch::CreateRegions(double width, double height)
   //index into the vector
   int idx = m_Regions.size()-1;
     
-  for (int col=0; col<NumRegionsHorizontal; ++col)
+  for (int col=0; col<FieldConst::NumRegionsHorizontal; ++col)
   {
-    for (int row=0; row<NumRegionsVertical; ++row)
+    for (int row=0; row<FieldConst::NumRegionsVertical; ++row)
     {
       m_Regions[idx--] = new Region(PlayingArea()->Left()+col*width,
                                    PlayingArea()->Top()+row*height,

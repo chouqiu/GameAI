@@ -9,6 +9,9 @@ const int WindowHeight = 400;
 const int TeamSize = 5;
 
 struct FieldConst {
+	static const int NumRegionsHorizontal = 7; 
+	static const int NumRegionsVertical   = 4;
+
 	static const int iMaxDistFromHomeRegion = 8;
 
 	static const int* const BlueAttackingRegions()
