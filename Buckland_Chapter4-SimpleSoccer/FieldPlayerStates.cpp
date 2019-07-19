@@ -45,7 +45,7 @@ void GlobalPlayerState::Execute(FieldPlayer* player)
   //if a player is closest to the ball, and his team is not in control, then chase it!
   if(player->Pitch()->GameOn() && player->isClosestTeamMemberToBall() && 
         player->Team()->InControl() == FALSE &&
-        player->GetFSM()->CurrentState.GetNameOfCurrentState() != "ReturnToHomeRegion")
+        player->GetFSM()->GetNameOfCurrentState() != "ReturnToHomeRegion")
   {
     Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
                               player->ID(),
