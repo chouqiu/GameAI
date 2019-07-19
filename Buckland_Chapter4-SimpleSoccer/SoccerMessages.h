@@ -6,6 +6,7 @@
 enum MessageType
 {
   Msg_ReceiveBall,
+  Msg_ChaseBall,
   Msg_PassToMe,
   Msg_SupportAttacker,
   Msg_GoHome,

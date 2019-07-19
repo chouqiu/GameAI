@@ -41,7 +41,16 @@ void GlobalPlayerState::Execute(FieldPlayer* player)
   {
      player->SetMaxSpeed(Prm.PlayerMaxSpeedWithoutBall);
   }
-    
+  
+  //if a player is closest to the ball, and his team is not in control, then chase it!
+  if(player->isClosestTeamMemberToBall() && player->Team()->InControl() == FALSE)
+  {
+    Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
+                              player->ID(),
+                              player->ID(),
+                              Msg_ChaseBall,
+                              NULL);
+  }
 }
 
 
@@ -58,6 +67,13 @@ bool GlobalPlayerState::OnMessage(FieldPlayer* player, const Telegram& telegram)
       player->GetFSM()->ChangeState(ReceiveBall::Instance());
 
       return true;
+    }
+
+    break;
+
+  case Msg_ChaseBall:
+    {
+      player->GetFSM()->ChangeState(ChaseBall::Instance());
     }
 
     break;
