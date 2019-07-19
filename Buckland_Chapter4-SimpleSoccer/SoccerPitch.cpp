@@ -114,7 +114,7 @@ void SoccerPitch::Update()
 
   //if a goal has been detected reset the pitch ready for kickoff
   if (m_pBlueGoal->Scored(m_pBall) || m_pRedGoal->Scored(m_pBall) ||
-        PlayingArea()->Inside(m_pBall->Pos() == FALSE)
+        PlayingArea()->Inside(m_pBall->Pos()) == FALSE)
   {
     //m_bGameOn = false;
     SetGameOff();
@@ -158,7 +158,7 @@ int SoccerPitch::GetRegionIndexFromPos(Vector2D pos)
 		}
 	}
 	*/
-	for (int id = 0; id < m_Regions.size(); ++id) {
+	for (size_t id = 0; id < m_Regions.size(); ++id) {
 		if (m_Regions[id] != NULL && (m_Regions[id])->Inside(pos)) {
 			return id;
 		}
