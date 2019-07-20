@@ -60,13 +60,13 @@ struct FieldConst {
 
 	static const int* const BlueDefendingRegions()
 	{
-		static const int regions[TeamSize] = { 1,6,8,3,5 };
+		static const int regions[TeamSize] = { 1,10,5,3,4 };//{ 1,6,8,3,5 };
 		return regions;
 	}
     //const int RedRegions[TeamSize] = {16,9,11,12,14};
 	static const int* const RedDefendingRegions()
 	{
-		static const int regions[TeamSize] = { 19,10,13,15,17 };
+		static const int regions[TeamSize] = { 19,12,10,16,14 };
 		return regions;
 	}
 };
