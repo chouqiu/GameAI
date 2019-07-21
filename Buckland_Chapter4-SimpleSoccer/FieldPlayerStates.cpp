@@ -44,8 +44,8 @@ void GlobalPlayerState::Execute(FieldPlayer* player)
   
   //if a player is closest to the ball, and his team is not in control, then chase it!
   if(player->Pitch()->GameOn() && player->isClosestTeamMemberToBall() && 
-        player->Team()->InControl() == FALSE &&
-        player->GetFSM()->GetNameOfCurrentState() != "ReturnToHomeRegion")
+        player->Team()->InControl() == FALSE)// &&
+   //     player->GetFSM()->GetNameOfCurrentState() != "ReturnToHomeRegion")
   {
     Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
                               player->ID(),
@@ -741,9 +741,9 @@ void ReceiveBall::Enter(FieldPlayer* player)
 
 void ReceiveBall::Execute(FieldPlayer* player)
 {
-  //if the ball comes close enough to the player or if his team lose control
+  //if the ball comes close enough to the player or if his team lose control, or if the ball is stopped
   //he should change state to chase the ball
-  if (player->BallWithinReceivingRange() || !player->Team()->InControl())
+  if (player->BallWithinReceivingRange() || !player->Team()->InControl() || player->Pitch()->Ball()->Velocity().LengthSq() <= FieldConst::MinBallSpeed() )
   {
     player->GetFSM()->ChangeState(ChaseBall::Instance());
 

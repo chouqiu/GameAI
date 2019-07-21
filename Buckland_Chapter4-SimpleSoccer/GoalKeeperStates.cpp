@@ -237,6 +237,9 @@ void PutBallBackInPlay::Enter(GoalKeeper* keeper)
   //let the team know that the keeper is in control
   keeper->Team()->SetControllingPlayer(keeper);
 
+  // stop the game when keeper get the ball
+  keeper->Pitch()->SetGameOff();
+
   //send all the players home
   //keeper->Team()->Opponents()->ReturnAllFieldPlayersToHome();
   //keeper->Team()->ReturnAllFieldPlayersToHome();
@@ -283,3 +286,8 @@ void PutBallBackInPlay::Execute(GoalKeeper* keeper)
   keeper->SetVelocity(Vector2D());
 }
 
+void PutBallBackInPlay::Exit(GoalKeeper* keeper)
+{
+	// restart the game
+	keeper->Pitch()->SetGameOn();
+}

@@ -120,7 +120,7 @@ public:
 
   void Execute(GoalKeeper* keeper);
 
-  void Exit(GoalKeeper* keeper){}
+  void Exit(GoalKeeper* keeper);
 
   bool OnMessage(GoalKeeper*, const Telegram&){return false;}
 };
