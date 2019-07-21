@@ -262,7 +262,7 @@ void PutBallBackInPlay::Execute(GoalKeeper* keeper)
                               BallTarget,
                               Prm.MaxPassingForce,
                               Prm.GoalkeeperMinPassDist))
-  {     
+  {
     //make the pass   
     keeper->Ball()->Kick(Vec2DNormalize(BallTarget - keeper->Ball()->Pos()),
                          Prm.MaxPassingForce);
@@ -276,7 +276,7 @@ void PutBallBackInPlay::Execute(GoalKeeper* keeper)
                           receiver->ID(),
                           Msg_ReceiveBall,
                           &BallTarget);
-    
+
     //go back to tending the goal   
     keeper->GetFSM()->ChangeState(TendGoal::Instance());
 

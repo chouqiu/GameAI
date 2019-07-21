@@ -19,7 +19,7 @@ struct FieldConst {
 
 	static const double MinBallSpeed()
 	{
-		return 0.001;
+		return 2.0;
 	}
 
 	static const player_role* const DefaultBlueTeam()
@@ -72,7 +72,7 @@ struct FieldConst {
     //const int RedRegions[TeamSize] = {16,9,11,12,14};
 	static const int* const RedDefendingRegions()
 	{
-		static const int regions[TeamSize] = { 19,4,10,12,16,14 };
+		static const int regions[TeamSize] = { 19,7,10,12,16,14 };
 		return regions;
 	}
 };
