@@ -54,7 +54,7 @@ struct FieldConst {
 	
 	static const int* const BlueAttackingRegions()
 	{
-		static const int regions[TeamSize] = { 1,15,14,17,9,7 };
+		static const int regions[TeamSize] = { 1,15,14,17,9,4 };
 		return regions;
 	}
 	//const int RedRegions[TeamSize] = {16,3,5,9,13};
