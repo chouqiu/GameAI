@@ -42,10 +42,12 @@ void GlobalPlayerState::Execute(FieldPlayer* player)
      player->SetMaxSpeed(Prm.PlayerMaxSpeedWithoutBall);
   }
   
-  //if a player is closest to the ball, and his team is not in control, then chase it!
-  if(player->Pitch()->GameOn() && player->isClosestTeamMemberToBall() && 
-        player->Team()->InControl() == FALSE)// &&
-   //     player->GetFSM()->GetNameOfCurrentState() != "ReturnToHomeRegion")
+  //if a player is closest to the ball, and his team is not in control, or he is 
+  //the controlling player, then chase it!
+  if(player->Pitch()->GameOn() 
+        && ((player->isClosestTeamMemberToBall() && player->Team()->InControl() == FALSE) 
+          || player->isControllingPlayer() == TRUE))
+   //   && player->GetFSM()->GetNameOfCurrentState() != "ReturnToHomeRegion")
   {
     Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
                               player->ID(),
