@@ -44,7 +44,7 @@ void GlobalPlayerState::Execute(FieldPlayer* player)
   
   //if a player is closest to the ball, and his team is not in control, or he is 
   //the controlling player, then chase it!
-  if(player->Pitch()->GameOn() && player->Role() != FieldConst::goal_keeper
+  if(player->Pitch()->GameOn()
         && player->isClosestTeamMemberToBall() && player->Team()->InControl() == FALSE)
    //   && player->GetFSM()->GetNameOfCurrentState() != "ReturnToHomeRegion")
   {
@@ -216,9 +216,9 @@ void ChaseBall::Execute(FieldPlayer* player)
     return;
   }
 
-  //if the player is the closest player to the ball then he should keep
+  //if the player is the closest player to the ball, or the controller, then he should keep
   //chasing it
-  if (player->isClosestTeamMemberToBall())
+  if (player->isClosestTeamMemberToBall() || player->isControllingPlayer())
   {
     player->Steering()->SetTarget(player->Ball()->Pos());
 
@@ -283,11 +283,12 @@ void SupportAttacker::Execute(FieldPlayer* player)
   }
 
   // if he is controller, then change state to chase ball
-  if (player->isControllingPlayer())
-  {
-    player->GetFSM()->ChangeState(ChaseBall::Instance());
-    return;
-  }
+  // ok ... useless...
+  //if (player->isControllingPlayer())
+  //{
+  //  player->GetFSM()->ChangeState(ChaseBall::Instance());
+  //  return;
+  //}
 
 
   //if the best supporting spot changes, change the steering target

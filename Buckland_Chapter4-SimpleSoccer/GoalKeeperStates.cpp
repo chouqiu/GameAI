@@ -209,7 +209,8 @@ void InterceptBall::Execute(GoalKeeper* keeper)
     keeper->Pitch()->SetGoalKeeperHasBall(true);
 
     // keeper got the ball, stop the game now!
-    keeper->Pitch()->SetGameOff();
+	// useless...
+    //keeper->Pitch()->SetGameOff();
 
     keeper->GetFSM()->ChangeState(PutBallBackInPlay::Instance());
 
