@@ -44,7 +44,7 @@ void GlobalPlayerState::Execute(FieldPlayer* player)
   
   //if a player is closest to the ball, and his team is not in control, or he is 
   //the controlling player, then chase it!
-  if(player->Pitch()->GameOn() 
+  if(player->Pitch()->GameOn() && player->Role != FieldConst::goal_keeper
         && player->isClosestTeamMemberToBall() && player->Team()->InControl() == FALSE)
    //   && player->GetFSM()->GetNameOfCurrentState() != "ReturnToHomeRegion")
   {
