@@ -45,8 +45,7 @@ void GlobalPlayerState::Execute(FieldPlayer* player)
   //if a player is closest to the ball, and his team is not in control, or he is 
   //the controlling player, then chase it!
   if(player->Pitch()->GameOn() 
-        && ((player->isClosestTeamMemberToBall() && player->Team()->InControl() == FALSE) 
-          || player->isControllingPlayer() == TRUE))
+        && player->isClosestTeamMemberToBall() && player->Team()->InControl() == FALSE)
    //   && player->GetFSM()->GetNameOfCurrentState() != "ReturnToHomeRegion")
   {
     Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
@@ -279,8 +278,16 @@ void SupportAttacker::Execute(FieldPlayer* player)
   //if his team loses control go back home
   if (!player->Team()->InControl())
   {
-    player->GetFSM()->ChangeState(ReturnToHomeRegion::Instance()); return;
-  } 
+    player->GetFSM()->ChangeState(ReturnToHomeRegion::Instance());
+    return;
+  }
+
+  // if he is controller, then change state to chase ball
+  if (player->isControllingPlayer())
+  {
+    player->GetFSM()->ChangeState(ChaseBall::Instance());
+    return;
+  }
 
 
   //if the best supporting spot changes, change the steering target

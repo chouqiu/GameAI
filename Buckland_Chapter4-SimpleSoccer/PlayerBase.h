@@ -133,6 +133,7 @@ public:
 
   //returns true if this player is the controlling player
   bool        isControllingPlayer()const;
+  bool        isReceivePlayer()const;
 
   //returns true if the player is located in the designated 'hot region' --
   //the area close to the opponent's goal

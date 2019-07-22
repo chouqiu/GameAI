@@ -236,6 +236,9 @@ double PlayerBase::DistToHomeGoal()const
 bool PlayerBase::isControllingPlayer()const
 {return Team()->ControllingPlayer()==this;}
 
+bool PlayerBase::isReceivePlayer()const
+{return Team()->Receiver() == this; }
+
 bool PlayerBase::BallWithinKeeperRange()const
 {
   return (Vec2DDistanceSq(Pos(), Ball()->Pos()) < Prm.KeeperInBallRangeSq);
