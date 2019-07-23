@@ -198,9 +198,9 @@ void InterceptBall::Enter(GoalKeeper* keeper)
 {
   keeper->Steering()->PursuitOn();  
 
-    #ifdef GOALY_STATE_INFO_ON
-    debug_con << "Goaly " << keeper->ID() << " enters InterceptBall" <<  "";
-    #endif
+  #ifdef GOALY_STATE_INFO_ON
+  debug_con << "Goaly " << keeper->ID() << " enters InterceptBall" <<  "";
+  #endif
 }
 
 void InterceptBall::Execute(GoalKeeper* keeper)
@@ -213,6 +213,11 @@ void InterceptBall::Execute(GoalKeeper* keeper)
         && FALSE == keeper->isReceivePlayer())
         //&& TRUE == keeper->Team()->InControl())
   {
+    #ifdef GOALY_STATE_INFO_ON
+    debug_con << "Goaly " << keeper->ID() << " stop intercept and turn back " 
+              <<  keeper->isReceivePlayer() << "";
+    #endif
+
     keeper->GetFSM()->ChangeState(ReturnHome::Instance());
 
     return;
