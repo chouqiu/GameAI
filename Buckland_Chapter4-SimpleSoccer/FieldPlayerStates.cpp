@@ -694,10 +694,12 @@ void Dribble::Execute(FieldPlayer* player)
 {
   double dot = player->Team()->HomeGoal()->Facing().Dot(player->Heading());
 
+  double distantFromWall = player->DistToOppGoal();
+
   //if the ball is between the player and the home goal, it needs to swivel
   // the ball around by doing multiple small kicks and turns until the player 
   //is facing in the correct direction
-  if (dot < 0)
+  if (dot < 0 && distantFromWall > FieldConst::dMinTurnRadius)
   {
     //the player's heading is going to be rotated by a small amount (Pi/4) 
     //and then the ball will be kicked in that direction
@@ -718,11 +720,27 @@ void Dribble::Execute(FieldPlayer* player)
     player->Ball()->Kick(direction, KickingForce);
   }
 
+  // turn back to wait supportor
+  else if (distantFromWall <= FieldConst::dMinTurnRadius)
+  {
+    Vector2D direction = player->Heading();
+
+    double angle = QuarterPi * -1 *
+                 player->Team()->OpponentsGoal()->Facing().Sign(player->Heading());
+
+    Vec2DRotateAroundOrigin(direction, angle);
+
+    const double KickingForce = 0.8;
+
+    player->Ball()->Kick(direction, KickingForce);
+  }
+
   //kick the ball down the field
   else
   {
-    player->Ball()->Kick(player->Team()->HomeGoal()->Facing(),
-                         Prm.MaxDribbleForce);  
+    Vector2D dir = player->Team()->HomeGoal()->Facing();
+
+    player->Ball()->Kick(dir, Prm.MaxDribbleForce);  
   }
 
   //the player has kicked the ball so he must now change state to follow it

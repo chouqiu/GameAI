@@ -17,6 +17,8 @@ struct FieldConst {
 
 	static const int iMaxDistFromHomeRegion = 8;
 
+	static const double dMinTurnRadius = WindowWidth / 10.0;
+
 	static const double MinBallSpeed()
 	{
 		return 2.0;

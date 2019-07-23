@@ -208,8 +208,9 @@ void InterceptBall::Execute(GoalKeeper* keeper)
   //if the goalkeeper moves to far away from the goal he should return to his
   //home region UNLESS he is the closest player to the ball, in which case,
   //he should keep trying to intercept it.
-  //and, the keeper's team must be in control...
-  if (keeper->TooFarFromGoalMouth() && !keeper->isClosestPlayerOnPitchToBall())
+  //and, the keeper is not the receiver.
+  if (keeper->TooFarFromGoalMouth() && !keeper->isClosestPlayerOnPitchToBall()
+        && FALSE == keeper->isReceivePlayer())
         //&& TRUE == keeper->Team()->InControl())
   {
     keeper->GetFSM()->ChangeState(ReturnHome::Instance());
