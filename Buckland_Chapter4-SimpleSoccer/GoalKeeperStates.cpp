@@ -207,8 +207,8 @@ void InterceptBall::Execute(GoalKeeper* keeper)
   //home region UNLESS he is the closest player to the ball, in which case,
   //he should keep trying to intercept it.
   //and, the keeper's team must be in control...
-  if (keeper->TooFarFromGoalMouth() && !keeper->isClosestPlayerOnPitchToBall()
-        && TRUE == keeper->Team()->InControl())
+  if (keeper->TooFarFromGoalMouth() && !keeper->isClosestPlayerOnPitchToBall())
+        //&& TRUE == keeper->Team()->InControl())
   {
     keeper->GetFSM()->ChangeState(ReturnHome::Instance());
 
