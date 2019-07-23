@@ -526,14 +526,15 @@ void KickBall::Enter(FieldPlayer* player)
    player->Team()->SetControllingPlayer(player);
    
    //the player can only make so many kick attempts per second.
-   if (!player->isReadyForNextKick()) 
+   bool ready = player->isReadyForNextKick();
+   if (FALSE == ready) 
    {
      player->GetFSM()->ChangeState(ChaseBall::Instance());
    }
 
    
   #ifdef PLAYER_STATE_INFO_ON
-  debug_con << "Player " << player->ID() << " enters kick state" << "";
+  debug_con << "Player " << player->ID() << " enters kick state " << ready << "";
   #endif
 }
 
@@ -552,7 +553,7 @@ void KickBall::Execute(FieldPlayer* player)
       (dot < 0) ) 
   {
     #ifdef PLAYER_STATE_INFO_ON
-    debug_con << "Goaly has ball / ball behind player" << "";
+    debug_con << "Goaly has ball " << player->Pitch()->GoalKeeperHasBall() << " / ball behind player" << "";
     #endif
     
     player->GetFSM()->ChangeState(ChaseBall::Instance());
