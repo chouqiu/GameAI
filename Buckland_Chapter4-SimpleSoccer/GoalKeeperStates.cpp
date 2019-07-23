@@ -28,7 +28,7 @@ GlobalKeeperState* GlobalKeeperState::Instance()
   return &instance;
 }
 
-GlobalKeeperState* GlobalKeeperState::Execute(GoalKeeper *keeper)
+void GlobalKeeperState::Execute(GoalKeeper *keeper)
 {
   // game off, just fall back...
   if (FALSE == keeper->Pitch()->GameOn())
