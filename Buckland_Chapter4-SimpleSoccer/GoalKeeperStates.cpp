@@ -31,6 +31,7 @@ GlobalKeeperState* GlobalKeeperState::Instance()
 void GlobalKeeperState::Execute(GoalKeeper *keeper)
 {
   // game off, just fall back...
+  /*
   if (FALSE == keeper->Pitch()->GameOn())
   {
     Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
@@ -39,6 +40,7 @@ void GlobalKeeperState::Execute(GoalKeeper *keeper)
                               Msg_GoHome,
                               NULL);
   }
+  */
 }
 
 
