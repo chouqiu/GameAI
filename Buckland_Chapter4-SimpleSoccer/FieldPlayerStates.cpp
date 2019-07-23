@@ -58,7 +58,7 @@ void GlobalPlayerState::Execute(FieldPlayer* player)
   // game off, just fall back...
   if(FALSE == player->Pitch()->GameOn())
   {
-    Dispatcher->DispatchDelayedMessages(SEND_MSG_IMMEDIATELY,
+    Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
                               player->ID(),
                               player->ID(),
                               Msg_GoCurrentHome,
