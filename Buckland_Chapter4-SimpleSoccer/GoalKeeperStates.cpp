@@ -15,7 +15,7 @@
 
 
 //uncomment to send state info to debug window
-//#define GOALY_STATE_INFO_ON
+#define GOALY_STATE_INFO_ON
 
 
 //--------------------------- GlobalKeeperState -------------------------------
@@ -193,7 +193,9 @@ void InterceptBall::Execute(GoalKeeper* keeper)
   //if the goalkeeper moves to far away from the goal he should return to his
   //home region UNLESS he is the closest player to the ball, in which case,
   //he should keep trying to intercept it.
-  if (keeper->TooFarFromGoalMouth() && !keeper->isClosestPlayerOnPitchToBall())
+  //and, the keeper's team must be in control...
+  if (keeper->TooFarFromGoalMouth() && !keeper->isClosestPlayerOnPitchToBall()
+        && TRUE == keeper->Team()->InControl())
   {
     keeper->GetFSM()->ChangeState(ReturnHome::Instance());
 
@@ -285,7 +287,20 @@ void PutBallBackInPlay::Execute(GoalKeeper* keeper)
     keeper->GetFSM()->ChangeState(TendGoal::Instance());
 
     return;
-  }  
+  }
+  // if all players at home, the keeper won't find a good pass, then, just kick it!
+  else if(keeper->Team()->AllPlayersAtHome() && keeper->Team()->Opponents()->AllPlayersAtHome())
+  {
+    //add some noise to the kick
+    Vector2D BallTarget = AddNoiseToKick(keeper->Ball()->Pos(), keeper->Team()->OpponentsGoal()->Center());
+
+    Vector2D KickDirection = BallTarget - keeper->Ball()->Pos();
+
+    keeper->Ball()->Kick(KickDirection, Prm.MaxShootingForce);
+    #ifdef GOALY_STATE_INFO_ON
+    debug_con << "Goaly " << keeper->ID() << " kick the ball to the opponents goal!" <<  "";
+    #endif
+  }
 
   keeper->SetVelocity(Vector2D());
 }

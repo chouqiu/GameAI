@@ -54,6 +54,16 @@ void GlobalPlayerState::Execute(FieldPlayer* player)
                               Msg_ChaseBall,
                               NULL);
   }
+
+  // game off, just fall back...
+  if(FALSE == player->Pitch()->GameOn())
+  {
+    Dispatcher->DispatchDelayedMessages(SEND_MSG_IMMEDIATELY,
+                              player->ID(),
+                              player->ID(),
+                              Msg_GoCurrentHome,
+                              NULL);
+  }
 }
 
 
@@ -218,7 +228,8 @@ void ChaseBall::Execute(FieldPlayer* player)
 
   //if the player is the closest player to the ball, or the controller, then he should keep
   //chasing it
-  if (player->isClosestTeamMemberToBall() || player->isControllingPlayer())
+  // just try another plan, see the end of this function...
+  if (player->isClosestTeamMemberToBall()) // || player->isControllingPlayer())
   {
     player->Steering()->SetTarget(player->Ball()->Pos());
 
@@ -242,6 +253,11 @@ void ChaseBall::Execute(FieldPlayer* player)
   //if the player is not closest to the ball anymore, he should return back
   //to his home region and wait for another opportunity
   player->GetFSM()->ChangeState(ReturnToHomeRegion::Instance());
+
+  //or try another plan: if one is return to home, then he lose control.
+  if (player->isControllingPlayer()) {
+    player->Team()->LostControl();
+  }
 }
 
 
