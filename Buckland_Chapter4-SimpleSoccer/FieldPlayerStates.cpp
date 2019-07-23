@@ -229,7 +229,7 @@ void ChaseBall::Execute(FieldPlayer* player)
   //if the player is the closest player to the ball, or the controller, then he should keep
   //chasing it
   // just try another plan, see the end of this function...
-  if (player->isClosestTeamMemberToBall()) || player->isControllingPlayer())
+  if (player->isClosestTeamMemberToBall() || player->isControllingPlayer())
   {
     player->Steering()->SetTarget(player->Ball()->Pos());
 
