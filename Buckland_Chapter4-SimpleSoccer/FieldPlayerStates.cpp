@@ -57,7 +57,8 @@ void GlobalPlayerState::Execute(FieldPlayer* player)
   }
 
   // game off, just fall back...
-  if(FALSE == player->Pitch()->GameOn() && player->CurrentState() != FieldPlayer::returnhome)
+  if(FALSE == player->Pitch()->GameOn() && FALSE == player->InHomeRegion()
+          && player->CurrentState() != FieldPlayer::returnhome)
   {
     Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
                               player->ID(),

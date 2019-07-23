@@ -33,6 +33,11 @@ struct Telegram;
 
 class FieldPlayer : public PlayerBase
 {
+
+public:
+
+  enum player_state {wait, chaseball, dribble, returnhome, kickball, receiveball, supportattacker};
+
 private:
 
    //an instance of the state machine class
@@ -46,8 +51,6 @@ private:
 
   
 public:
-
-  enum player_state {wait, chaseball, dribble, returnhome, kickball, receiveball, supportattacker};
 
   FieldPlayer(SoccerTeam*    home_team,
              int        home_region,
