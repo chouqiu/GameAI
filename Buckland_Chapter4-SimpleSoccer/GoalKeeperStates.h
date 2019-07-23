@@ -33,7 +33,7 @@ public:
 
   void Enter(GoalKeeper* keeper){}
 
-  void Execute(GoalKeeper* keeper){}
+  void Execute(GoalKeeper* keeper);
 
   void Exit(GoalKeeper* keeper){}
 
