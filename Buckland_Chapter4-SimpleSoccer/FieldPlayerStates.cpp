@@ -45,7 +45,8 @@ void GlobalPlayerState::Execute(FieldPlayer* player)
   //if a player is closest to the ball, and his team is not in control, or he is 
   //the controlling player, then chase it!
   if(player->Pitch()->GameOn()
-        && player->isClosestTeamMemberToBall() && player->Team()->InControl() == FALSE)
+        && player->isClosestTeamMemberToBall() && player->Team()->InControl() == FALSE
+        && player->CurrentState() != FieldPlayer::chaseball)
    //   && player->GetFSM()->GetNameOfCurrentState() != "ReturnToHomeRegion")
   {
     Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
@@ -56,7 +57,7 @@ void GlobalPlayerState::Execute(FieldPlayer* player)
   }
 
   // game off, just fall back...
-  if(FALSE == player->Pitch()->GameOn())
+  if(FALSE == player->Pitch()->GameOn() && player->CurrentState() != FieldPlayer::returnhome)
   {
     Dispatcher->DispatchMsg(SEND_MSG_IMMEDIATELY,
                               player->ID(),
@@ -210,6 +211,8 @@ ChaseBall* ChaseBall::Instance()
 void ChaseBall::Enter(FieldPlayer* player)
 {
   player->Steering()->SeekOn();
+  
+  player->SetCurrentState(FieldPlayer::chaseball);
 
   #ifdef PLAYER_STATE_INFO_ON
   debug_con << "Player " << player->ID() << " enters chase state" << "";
@@ -286,6 +289,8 @@ void SupportAttacker::Enter(FieldPlayer* player)
 
   player->Steering()->SetTarget(player->Team()->GetSupportSpot());
   
+  player->SetCurrentState(FieldPlayer::supportattacker);
+
   #ifdef PLAYER_STATE_INFO_ON
   debug_con << "Player " << player->ID() << " enters support state" << "";
   #endif
@@ -377,6 +382,8 @@ void ReturnToHomeRegion::Enter(FieldPlayer* player)
     player->Steering()->SetTarget(player->HomeRegion()->Center());
   }
 
+  player->SetCurrentState(FieldPlayer::returnhome);
+
   #ifdef PLAYER_STATE_INFO_ON
   debug_con << "Player " << player->ID() << " enters ReturnToHome state" << "";
   #endif
@@ -436,6 +443,8 @@ Wait* Wait::Instance()
 
 void Wait::Enter(FieldPlayer* player)
 {
+  player->SetCurrentState(FieldPlayer::wait);
+
   #ifdef PLAYER_STATE_INFO_ON
   debug_con << "Player " << player->ID() << " enters wait state" << "";
   #endif
@@ -532,7 +541,8 @@ void KickBall::Enter(FieldPlayer* player)
      player->GetFSM()->ChangeState(ChaseBall::Instance());
    }
 
-   
+  player->SetCurrentState(FieldPlayer::kickball);
+
   #ifdef PLAYER_STATE_INFO_ON
   debug_con << "Player " << player->ID() << " enters kick state " << ready << "";
   #endif
@@ -672,6 +682,8 @@ void Dribble::Enter(FieldPlayer* player)
   //let the team know this player is controlling
   player->Team()->SetControllingPlayer(player);
 
+  player->SetCurrentState(FieldPlayer::dribble);
+
 #ifdef PLAYER_STATE_INFO_ON
   debug_con << "Player " << player->ID() << " enters dribble state" << "";
   #endif
@@ -737,6 +749,8 @@ void ReceiveBall::Enter(FieldPlayer* player)
   
   //this player is also now the controlling player
   player->Team()->SetControllingPlayer(player);
+
+  player->SetCurrentState(FieldPlayer::receiveball);
 
   //there are two types of receive behavior. One uses arrive to direct
   //the receiver to the position sent by the passer in its telegram. The

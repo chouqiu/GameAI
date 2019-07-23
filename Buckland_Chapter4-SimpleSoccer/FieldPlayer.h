@@ -41,8 +41,13 @@ private:
   //limits the number of kicks a player may take per second
   Regulator*                  m_pKickLimiter;
 
+  //player current state
+  player_state                m_curstate;
+
   
 public:
+
+  enum player_state {wait, chaseball, dribble, returnhome, kickball, receiveball, supportattacker};
 
   FieldPlayer(SoccerTeam*    home_team,
              int        home_region,
@@ -69,6 +74,9 @@ public:
 
   bool        isReadyForNextKick()const{return m_pKickLimiter->isReady();}
 
+  void        SetCurrentState(player_state s) { m_curstate = s; }
+
+  player_state CurrentState()const { return m_curstate; }
          
 };
 
