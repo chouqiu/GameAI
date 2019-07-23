@@ -213,7 +213,7 @@ void InterceptBall::Execute(GoalKeeper* keeper)
   if (keeper->TooFarFromGoalMouth() && !keeper->isClosestPlayerOnPitchToBall())
   {
     #ifdef GOALY_STATE_INFO_ON
-    debug_con << "Goaly " << keeper->ID() << " stop intercept and turn back" <<""
+    debug_con << "Goaly " << keeper->ID() << " stop intercept and turn back" << "";
     #endif
 
     keeper->GetFSM()->ChangeState(ReturnHome::Instance());
