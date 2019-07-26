@@ -48,11 +48,14 @@ PlayerBase::PlayerBase(SoccerTeam* home_team,
                  Vector2D(scale,scale),
                  max_turn_rate,
                  max_force),
-   m_pTeam(home_team),
-   m_dDistSqToBall(MaxFloat),
-   m_iHomeRegion(home_region),
-   m_iDefaultRegion(home_region),
-   m_PlayerRole(role)
+    m_pTeam(home_team),
+    m_dDistSqToBall(MaxFloat),
+    m_iHomeRegion(home_region),
+    m_iDefaultRegion(home_region),
+    m_PlayerRole(role),
+    m_dSelfForce(100.0),
+    m_dSelfSpeed(100.0),
+    m_dSelfTurnRate(100.0)
 {
   
   //setup the vertex buffers and calculate the bounding radius

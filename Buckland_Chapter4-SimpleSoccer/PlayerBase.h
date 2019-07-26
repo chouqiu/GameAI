@@ -59,6 +59,13 @@ protected:
   //a lot so it's calculated once each time-step and stored here.
   double                   m_dDistSqToBall;
 
+  //player self-attributes, scale is 0~200.0, means player‘s ability based 
+  //on default speed. Default is 100.0, means 100%
+  std::string             m_strName;
+  double                  m_dSelfSpeed;
+  double                  m_dSelfTurnRate;
+  double                  m_dSelfForce;
+
   
   //the vertex buffer
   std::vector<Vector2D>   m_vecPlayerVB;
