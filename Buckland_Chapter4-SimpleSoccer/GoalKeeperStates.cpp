@@ -119,7 +119,7 @@ void TendGoal::Execute(GoalKeeper* keeper)
 
   //if ball is within a predefined distance, the keeper moves out from
   //position to try and intercept it.
-  if (keeper->BallWithinRangeForIntercept() && !keeper->Team()->InControl())
+  if (keeper->BallWithinRangeForIntercept() && (!keeper->Team()->InControl() || keeper->isClosestPlayerOnPitchToBall()))
   {
     keeper->GetFSM()->ChangeState(InterceptBall::Instance());
   }
@@ -205,6 +205,24 @@ void InterceptBall::Enter(GoalKeeper* keeper)
 
 void InterceptBall::Execute(GoalKeeper* keeper)
 { 
+
+	//if the ball becomes in range of the goalkeeper's hands he traps the 
+	//ball and puts it back in play
+	if (keeper->BallWithinKeeperRange())
+	{
+		keeper->Ball()->Trap();
+
+		keeper->Pitch()->SetGoalKeeperHasBall(true);
+
+		// keeper got the ball, stop the game now!
+		// useless...
+		//keeper->Pitch()->SetGameOff();
+
+		keeper->GetFSM()->ChangeState(PutBallBackInPlay::Instance());
+
+		return;
+	}
+
   //if the goalkeeper moves to far away from the goal he should return to his
   //home region UNLESS he is the closest player to the ball, in which case,
   //he should keep trying to intercept it.
@@ -217,23 +235,6 @@ void InterceptBall::Execute(GoalKeeper* keeper)
     #endif
 
     keeper->GetFSM()->ChangeState(ReturnHome::Instance());
-
-    return;
-  }
-  
-  //if the ball becomes in range of the goalkeeper's hands he traps the 
-  //ball and puts it back in play
-  if (keeper->BallWithinKeeperRange())
-  {
-    keeper->Ball()->Trap();
-    
-    keeper->Pitch()->SetGoalKeeperHasBall(true);
-
-    // keeper got the ball, stop the game now!
-	// useless...
-    //keeper->Pitch()->SetGameOff();
-
-    keeper->GetFSM()->ChangeState(PutBallBackInPlay::Instance());
 
     return;
   }

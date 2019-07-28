@@ -167,6 +167,21 @@ int SoccerPitch::GetRegionIndexFromPos(Vector2D pos)
 	return -1;
 }
 
+bool SoccerPitch::InSameRegion(const MovingEntity * entity1, const MovingEntity * entity2)
+{
+	if (entity1 == NULL || entity2 == NULL)
+	{
+		return FALSE;
+	}
+
+	if (GetRegionIndexFromPos(entity1->Pos()) == GetRegionIndexFromPos(entity2->Pos()))
+	{
+		return TRUE;
+	}
+	
+	return false;
+}
+
 //------------------------------ Render ----------------------------------
 //------------------------------------------------------------------------
 bool SoccerPitch::Render()

@@ -230,10 +230,11 @@ void ChaseBall::Execute(FieldPlayer* player)
     return;
   }
 
-  //if the player is the closest player to the ball, or the controller, then he should keep
-  //chasing it
+  //if the player is the closest player to the ball, or the controller, or is in guard, then 
+  //he should keep chasing it
   // just try another plan, see the end of this function...
-  if (player->isClosestTeamMemberToBall() || player->isControllingPlayer())
+  if (player->isClosestTeamMemberToBall() || player->isControllingPlayer()
+	  || TRUE == player->Pitch()->InSameRegion(player, player->Ball()))
   {
     player->Steering()->SetTarget(player->Ball()->Pos());
 
@@ -256,8 +257,11 @@ void ChaseBall::Execute(FieldPlayer* player)
   
   //if the player is not closest to the ball anymore, he should return back
   //to his home region and wait for another opportunity
-  player->GetFSM()->ChangeState(ReturnToHomeRegion::Instance());
+  //player->GetFSM()->ChangeState(ReturnToHomeRegion::Instance());
+  // because wait is the central state, so get back to wait..
+  player->GetFSM()->ChangeState(Wait::Instance());
 
+  return;
   //or try another plan: if one is return to home, then he lose control.
   //if team is lost control, then he will chase back, that will lead to a
   //dead loop ... so, the plan is bad, give it up...
@@ -495,7 +499,8 @@ void Wait::Execute(FieldPlayer* player)
    //if the ball is nearer this player than any other team member  AND
     //there is not an assigned receiver AND neither goalkeeper has
     //the ball, go chase it
-   if (player->isClosestTeamMemberToBall() &&
+    /*try guard mode ...
+    if (player->isClosestTeamMemberToBall() &&
        player->Team()->Receiver() == NULL  &&
        !player->Pitch()->GoalKeeperHasBall())
    {
@@ -503,6 +508,13 @@ void Wait::Execute(FieldPlayer* player)
 
      return;
    }
+   */
+	if (player->Pitch()->InSameRegion(player, player->Ball()))
+	{
+		player->GetFSM()->ChangeState(Guard::Instance());
+
+		return;
+	}
 
     if (player->InHomeRegion() == FALSE)
     {
@@ -518,7 +530,58 @@ void Wait::Execute(FieldPlayer* player)
 void Wait::Exit(FieldPlayer* player){}
 
 
+//************************************************************************ GUARD
 
+Guard* Guard::Instance()
+{
+	static Guard instance;
+	
+	return &instance;
+}
+
+void Guard::Enter(FieldPlayer *player)
+{
+	player->SetCurrentState(FieldPlayer::guard);
+
+#ifdef PLAYER_STATE_INFO_ON
+	debug_con << "Player " << player->ID() << " enters guard state" << "";
+#endif
+}
+
+void Guard::Execute(FieldPlayer *player)
+{
+	//if the game is on, then guard the field, or, go back home region.
+	//here we treat wait state as central state...
+	if (player->Pitch()->GameOn())
+	{
+		if (TRUE == player->Pitch()->InSameRegion(player, player->Ball()))
+		{
+			if (FALSE == player->Team()->InControl() && FALSE == player->Pitch()->GoalKeeperHasBall())
+			{
+				player->GetFSM()->ChangeState(ChaseBall::Instance());
+
+				return;
+			}
+		}
+		else
+		{
+			player->GetFSM()->ChangeState(Wait::Instance());
+
+			return;
+		}
+	}
+	else
+	{
+		player->GetFSM()->ChangeState(ReturnToHomeRegion::Instance());
+
+		return;
+	}
+}
+
+void Guard::Exit(FieldPlayer *player)
+{
+
+}
 
 //************************************************************************ KICK BALL
 

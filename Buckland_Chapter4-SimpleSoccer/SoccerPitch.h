@@ -25,6 +25,7 @@ class Region;
 class Goal;
 class SoccerTeam;
 class SoccerBall;
+class MovingEntity;
 class SoccerTeam;
 class PlayerBase;
 
@@ -101,6 +102,9 @@ public:
   }
 
   int GetRegionIndexFromPos(Vector2D pos);
+
+  //to judge if two entities in same region
+  bool InSameRegion(const MovingEntity *entity1, const MovingEntity *entity2);
 
   bool  GameOn()const{return m_bGameOn;}
   void  SetGameOn(){m_bGameOn = true;}

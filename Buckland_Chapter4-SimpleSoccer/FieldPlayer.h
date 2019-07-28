@@ -36,7 +36,7 @@ class FieldPlayer : public PlayerBase
 
 public:
 
-  enum player_state {wait, chaseball, dribble, returnhome, kickball, receiveball, supportattacker};
+  enum player_state {wait, guard, chaseball, dribble, returnhome, kickball, receiveball, supportattacker};
 
 private:
 

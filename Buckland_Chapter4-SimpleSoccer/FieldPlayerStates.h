@@ -129,6 +129,27 @@ public:
 };
 
 //------------------------------------------------------------------------
+//guard the field.
+class Guard : public State<FieldPlayer>
+{
+private:
+	
+	Guard() {}
+
+public:
+
+	static Guard* Instance();
+
+	void Enter(FieldPlayer *player);
+
+	void Execute(FieldPlayer *player);
+
+	void Exit(FieldPlayer *player);
+
+	bool OnMessage(FieldPlayer*, const Telegram&) { return false; }
+};
+
+//------------------------------------------------------------------------
 class KickBall: public State<FieldPlayer>
 {
 private:
