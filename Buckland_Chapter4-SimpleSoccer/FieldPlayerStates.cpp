@@ -556,7 +556,8 @@ void Guard::Execute(FieldPlayer *player)
 	{
 		if (TRUE == player->Pitch()->InSameRegion(player, player->Ball()))
 		{
-			if (FALSE == player->Team()->InControl() && FALSE == player->Pitch()->GoalKeeperHasBall())
+			if ((FALSE == player->Team()->InControl() || TRUE == player->isClosestPlayerOnPitchToBall())
+					&& FALSE == player->Pitch()->GoalKeeperHasBall())
 			{
 				player->GetFSM()->ChangeState(ChaseBall::Instance());
 
